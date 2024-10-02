@@ -6,11 +6,11 @@ The Medgloss PDF Watermark Removal tool is a Python-based project aimed at autom
 This project is particularly useful for managing large volumes of PDF files in the Medgloss system, allowing seamless customization and branding of documents.
 
 Features
-- Add Watermarks to PDFs:** Apply a custom watermark to any PDF document.
-- Remove Watermarks from PDFs:** Cleanly remove watermarks from PDF files.
-- Efficient Batch Processing:** Handle multiple PDF files in a batch to save time.
-- Customizable Watermarks:** Users can define their own text or image watermarks.
-- Secure File Handling:** The original PDF structure is preserved while adding/removing watermarks.
+- Add Watermarks to PDFs: Apply a custom watermark to any PDF document.
+- Remove Watermarks from PDFs: Cleanly remove watermarks from PDF files.
+- Efficient Batch Processing: Handle multiple PDF files in a batch to save time.
+- Customizable Watermarks: Users can define their own text or image watermarks.
+- Secure File Handling: The original PDF structure is preserved while adding/removing watermarks.
 
 Requirements
 The project requires Python 3.x and the following libraries:
@@ -72,7 +72,3 @@ python batch_watermark.py input_directory/ output_directory/
 - `output_directory/`: Directory to save the processed PDFs.
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-This document provides a clear and structured overview of your project and how to use it! You can customize it further to match your exact project details.
