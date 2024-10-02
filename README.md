@@ -1,43 +1,78 @@
 Medgloss PDF Watermark Removal
+
 Project Overview
 The Medgloss PDF Watermark Removal tool is a Python-based project aimed at automating the addition and removal of watermarks in PDF files. It uses libraries like PyPDF2 and reportlab to efficiently manage PDF content and enhance document presentation.
 
 This project is particularly useful for managing large volumes of PDF files in the Medgloss system, allowing seamless customization and branding of documents.
 
 Features
-Add Watermarks to PDFs: Apply a custom watermark to any PDF document.
-Remove Watermarks from PDFs: Cleanly remove watermarks from PDF files.
-Efficient Batch Processing: Handle multiple PDF files in a batch to save time.
-Customizable Watermarks: Users can define their own text or image watermarks.
-Secure File Handling: The original PDF structure is preserved while adding/removing watermarks.
+- Add Watermarks to PDFs:** Apply a custom watermark to any PDF document.
+- Remove Watermarks from PDFs:** Cleanly remove watermarks from PDF files.
+- Efficient Batch Processing:** Handle multiple PDF files in a batch to save time.
+- Customizable Watermarks:** Users can define their own text or image watermarks.
+- Secure File Handling:** The original PDF structure is preserved while adding/removing watermarks.
+
 Requirements
 The project requires Python 3.x and the following libraries:
+- `PyPDF2`: For PDF manipulation.
+- `reportlab`: To create custom watermarks.
+- `tkinter` (optional): For GUI-based file selection (if GUI support is added).
 
-PyPDF2: For PDF manipulation.
-reportlab: To create custom watermarks.
-tkinter (optional): For GUI-based file selection (if GUI support is added).
-Install the required libraries via pip:
+Install the required libraries via `pip`:
 
+```bash
 pip install PyPDF2 reportlab
-How to Use
-1. Add Watermark to PDF
+```
+
+## How to Use
+
+### 1. Add Watermark to PDF
+
 To add a watermark to a PDF file, use the following command:
+
+bash
 python add_watermark.py input.pdf watermark.pdf output.pdf
-input.pdf: The original PDF file to which the watermark will be added.
-watermark.pdf: The PDF file containing the watermark (created using reportlab).
-output.pdf: The output PDF with the watermark applied.
+
+
+- `input.pdf`: The original PDF file to which the watermark will be added.
+- `watermark.pdf`: The PDF file containing the watermark (created using `reportlab`).
+- `output.pdf`: The output PDF with the watermark applied.
+
 2. Remove Watermark from PDF
+
 To remove a watermark from a PDF file, use:
+
+bash
 python remove_watermark.py input.pdf output.pdf
-input.pdf: The watermarked PDF file.
-output.pdf: The output PDF with the watermark removed.
-3. Create a Watermark
-To create a watermark PDF using reportlab:
+
+
+- `input.pdf`: The watermarked PDF file.
+- `output.pdf`: The output PDF with the watermark removed.
+
+### 3. Create a Watermark
+
+To create a watermark PDF using `reportlab`:
+
+bash
 python create_watermark.py "Your Watermark Text" watermark.pdf
-Replace "Your Watermark Text" with the desired text for your watermark.
-watermark.pdf will be the generated PDF containing your custom watermark.
+
+
+- Replace `"Your Watermark Text"` with the desired text for your watermark.
+- `watermark.pdf` will be the generated PDF containing your custom watermark.
+
 4. Batch Processing
+
 For batch processing multiple PDF files, simply provide a directory as input, and the tool will automatically process all PDFs in the directory.
+
+bash
 python batch_watermark.py input_directory/ output_directory/
-input_directory/: Directory containing the PDFs to be processed.
-output_directory/: Directory to save the processed PDFs.
+
+
+- `input_directory/`: Directory containing the PDFs to be processed.
+- `output_directory/`: Directory to save the processed PDFs.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+This document provides a clear and structured overview of your project and how to use it! You can customize it further to match your exact project details.
