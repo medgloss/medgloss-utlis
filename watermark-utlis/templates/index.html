@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermark Adder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+            width: 100%;
+            max-width: 400px;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+            appearance: auto;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .autocomplete-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .autocomplete-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .autocomplete-item:hover {
+            background-color: #f5f5f5;
+        }
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+        button {
+            padding: 12px 24px;
+            border-radius: 4px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            min-width: 120px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #preview {
+            margin-top: 1.5rem;
+            max-width: 100%;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #preview img {
+            max-width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        #status {
+            margin-top: 1rem;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: center;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Watermark Adder</h2>
+        
+        <div class="form-group">
+            <label for="university">University:</label>
+            <div class="autocomplete-container">
+                <input type="text" id="university" placeholder="Start typing university name...">
+                <div id="universityList" class="autocomplete-list hidden"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="course">Course:</label>
+            <select id="course">
+                <option value="">Select course</option>
+                <option value="MBBS">MBBS</option>
+                <option value="BAMS">BAMS</option>
+                <option value="BHMS">BHMS</option>
+                <option value="BUMS">BUMS</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <select id="subject">
+                <option value="">Select subject</option>
+                <option value="Anatomy">Anatomy</option>
+                <option value="Physiology">Physiology</option>
+                <option value="Biochemistry">Biochemistry</option>
+                <option value="Pathology">Pathology</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Year:</label>
+            <select id="year">
+                <option value="">Select year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="season">Season:</label>
+            <select id="season">
+                <option value="">Select season</option>
+                <option value="Summer">Summer</option>
+                <option value="Winter">Winter</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="fileType">File Type:</label>
+            <select id="fileType">
+                <option value="">Select file type</option>
+                <option value="image">Image</option>
+                <option value="pdf">PDF</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <input type="file" id="fileInput" class="hidden">
+            <div class="button-group">
+                <button id="selectFile">Select File</button>
+                <button id="addWatermark" disabled>Add Watermark</button>
+                <button id="downloadFile" class="hidden">Download</button>
+            </div>
+        </div>
+
+        <div id="status" class="hidden"></div>
+        <div id="preview"></div>
+    </div>
+
+    <script>
+        // Simulated university data (replace with actual data from dropdownData.json)
+        const universities = [
+            "All India Institute of Medical Sciences",
+            "Banaras Hindu University",
+            "Christian Medical College",
+            "King George's Medical University",
+            "Jawaharlal Institute of Postgraduate Medical Education & Research"
+        ];
+
+        const fileInput = document.getElementById('fileInput');
+        const selectFile = document.getElementById('selectFile');
+        const addWatermark = document.getElementById('addWatermark');
+        const downloadFile = document.getElementById('downloadFile');
+        const fileType = document.getElementById('fileType');
+        const status = document.getElementById('status');
+        const preview = document.getElementById('preview');
+        const universityInput = document.getElementById('university');
+        const universityList = document.getElementById('universityList');
+
+        // University autocomplete functionality
+        universityInput.addEventListener('input', function() {
+            const value = this.value.toLowerCase();
+            const matches = universities.filter(uni => 
+                uni.toLowerCase().includes(value)
+            );
+
+            if (matches.length && value) {
+                universityList.innerHTML = matches
+                    .map(uni => `<div class="autocomplete-item">${uni}</div>`)
+                    .join('');
+                universityList.classList.remove('hidden');
+            } else {
+                universityList.classList.add('hidden');
+            }
+        });
+
+        universityList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('autocomplete-item')) {
+                universityInput.value = e.target.textContent;
+                universityList.classList.add('hidden');
+            }
+        });
+
+        // Hide autocomplete list when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!universityInput.contains(e.target)) {
+                universityList.classList.add('hidden');
+            }
+        });
+
+        function showStatus(message, isError = false) {
+            status.textContent = message;
+            status.classList.remove('hidden', 'error', 'success');
+            status.classList.add(isError ? 'error' : 'success');
+        }
+
+        function validateForm() {
+            const required = {
+                university: universityInput.value,
+                course: document.getElementById('course').value,
+                subject: document.getElementById('subject').value,
+                year: document.getElementById('year').value,
+                season: document.getElementById('season').value,
+                fileType: fileType.value,
+                file: fileInput.files[0]
+            };
+
+            for (const [field, value] of Object.entries(required)) {
+                if (!value) {
+                    showStatus(`Please fill in all fields: ${field} is missing`, true);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        fileType.addEventListener('change', function() {
+            fileInput.value = '';
+            addWatermark.disabled = true;
+            downloadFile.classList.add('hidden');
+            preview.innerHTML = '';
+            
+            if (this.value === 'image') {
+                fileInput.accept = '.jpg,.jpeg,.png';
+            } else if (this.value === 'pdf') {
+                fileInput.accept = '.pdf';
+            }
+        });
+
+        selectFile.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                addWatermark.disabled = false;
+                downloadFile.classList.add('hidden');
+                
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.innerHTML = `Selected file: ${file.name}`;
+                }
+            } else {
+                addWatermark.disabled = true;
+                preview.innerHTML = '';
+            }
+        });
+
+        addWatermark.addEventListener('click', async () => {
+            if (!validateForm()) {
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('fileType', fileType.value);
+            formData.append('university', universityInput.value);
+            formData.append('course', document.getElementById('course').value);
+            formData.append('subject', document.getElementById('subject').value);
+            formData.append('year', document.getElementById('year').value);
+            formData.append('season', document.getElementById('season').value);
+
+            addWatermark.disabled = true;
+            showStatus('Processing...');
+
+            try {
+                const response = await fetch('/api/add-watermark', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    window.watermarkedFile = await response.blob();
+                    downloadFile.classList.remove('hidden');
+                    showStatus('Watermark added successfully!');
+                } else {
+                    const error = await response.text();
+                    showStatus(`Error: ${error}`, true);
+                }
+            } catch (error) {
+                showStatus(`Error: ${error.message}`, true);
+            } finally {
+                addWatermark.disabled = false;
+            }
+        });
+
+        downloadFile.addEventListener('click', () => {
+            if (window.watermarkedFile) {
+                const url = URL.createObjectURL(window.watermarkedFile);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `watermarked-file${fileType.value === 'pdf' ? '.pdf' : '.png'}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showStatus('File downloaded successfully!');
+            }
+        });
+    </script>
+</body>
+</html>
